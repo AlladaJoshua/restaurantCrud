@@ -13,7 +13,7 @@ const useCustomIDGenerator = () => {
         id = "BEV" + Date.now().toString(36);
         break;
       default:
-        id = "OTH" + Date.now().toString(36);
+        id = "MNC" + Date.now().toString(36);
     }
     return id.toUpperCase();
   };
