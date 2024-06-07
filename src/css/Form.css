@@ -1,0 +1,117 @@
+.form-container {
+    width: 15%;
+    display: flex;
+    justify-content: start;
+    background-color: #EEF7FF;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #D6E4E5;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header h2 {
+    text-align: center;
+}
+
+form {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    height: 630px;
+}
+
+.input-group-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group-form input {
+    padding: 0 20px;
+    line-height: 35px;
+    border-radius: 10px;
+    border: 1px solid #D8D8D8;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-group-form select {
+    padding: 0 20px;
+    border-radius: 10px;
+    border: 1px solid #D8D8D8;
+    outline: none;
+    font-size: 16px;
+    height: 40px;
+}
+
+.input-group-form input:focus {
+    border: 1px solid #EB6440;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.button-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.primary-btn {
+    background-color: #EB6440;
+    border: none;
+    height: 40px;
+    margin-top: 25px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    width: 150px;
+}
+
+.secondary-btn {
+    background-color: #E7475E;
+    border: none;
+    height: 40px;
+    margin-top: 25px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    width: 150px;
+}
+
+.secondary-btn:hover {
+    background-color: #FA7F72;
+    border: 1px solid #E7475E;
+}
+
+.primary-btn:hover {
+    background-color: #F5A25D;
+    border: 1px solid #EB6440;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}

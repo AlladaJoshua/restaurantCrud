@@ -1,0 +1,134 @@
+/* Default styles */
+.table-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  width: 85%;
+  background-color: #eef7ff;
+  flex-direction: column;
+}
+
+.table {
+  width: 100%;
+  padding: 10px;
+  height: 505px;
+}
+
+.header-table {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6e4e5;
+}
+
+.search-bar-container {
+  position: relative; /* Add this line */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.search-bar-container input[type="text"] {
+  line-height: 35px;
+  padding: 0 40px;
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-bar-container input[type="text"]:focus {
+  border: 1px solid #eb6440;
+}
+
+.search-icon {
+  position: absolute;
+  left: 25px;
+  top: 50%; /* Adjust vertically to center the icon */
+  transform: translateY(-50%); /* Center the icon vertically */
+  color: #888;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+th:nth-child(6),
+th:nth-child(9),
+th:last-child {
+  text-align: center;
+}
+
+td:nth-child(6),
+td:nth-child(9) {
+  text-align: end;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  accent-color: #eb6440;
+  width: 18px;
+  height: 18px;
+}
+
+.total-row {
+  text-align: end;
+  font-weight: 700;
+}
+
+.delete-btn {
+  background-color: #e7475e;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-btn {
+  background-color: #EB6440;
+  padding: 5px 10px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+.delete-btn:hover {
+  background-color: #FA7F72;
+  outline: 1px solid #E7475E;
+}
+.edit-btn:hover {
+  background-color: #F5A25D;
+  outline: 1px solid #EB6440;
+}
