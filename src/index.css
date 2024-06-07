@@ -32,8 +32,8 @@ main {
     max-height: 500px; /* Set maximum height to enable vertical scrolling */
   }
 
-  th {
-    font-size: 14px;
+  th,td {
+    font-size: 12px;
   }
 }
 
@@ -63,8 +63,8 @@ main {
     width: 200px;
   }
 
-  th {
-    font-size: 14px;
+  th,td {
+    font-size: 12px;
   }
 }
 
@@ -83,7 +83,7 @@ main {
     width: 65%;
   }
 
-  th {
-    font-size: 14px;
+  th,td {
+    font-size: 12px;
   }
 }
