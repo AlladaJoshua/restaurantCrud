@@ -66,4 +66,12 @@ main {
     overflow-y: auto; /* Add vertical scrollbar when content overflows */
     max-height: 500px; /* Set maximum height to enable vertical scrolling */
   }
+
+  .form-container {
+    width: 35%;
+  }
+
+  .table-container {
+    width: 65%;
+  }
 }
