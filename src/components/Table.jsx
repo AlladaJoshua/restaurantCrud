@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../css/Table.css";
+import useFetchData from "../hooks/useFetchData";
 import useTableSelection from "../hooks/useTableSelection";
+import useTableSort from "../hooks/useTableSort";
 import Pagination from "./Pagination ";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -14,9 +16,12 @@ import {
 } from "../back-end/config";
 
 const Table = ({ onEditItem }) => {
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortDirection, setSortDirection] = useState({
+  const { data, setData } = useFetchData();
+  const { selectAll, handleSelectAll, handleSelectItem } = useTableSelection(
+    data,
+    setData
+  );
+  const { sortDirection, handleSort } = useTableSort({
     name: null,
     size: null,
     category: null,
@@ -25,12 +30,18 @@ const Table = ({ onEditItem }) => {
     remainingStock: null,
     price: null,
   });
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const [editingItemId, setEditingItemId] = useState(null); // State for editing item ID
-  const itemsPerPage = 10; // Number of items to display per page
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [editingItemId, setEditingItemId] = useState(null);
+  const itemsPerPage = 10;
 
   useEffect(() => {
-    fetchData();
+    const unsubscribe = onSnapshot(collection(db, "items"), () => {
+      fetchData();
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchData = async () => {
@@ -42,20 +53,6 @@ const Table = ({ onEditItem }) => {
     }));
     setData(itemsList);
   };
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "items"), () => {
-      fetchData();
-    });
-
-    // Clean up function to unsubscribe from the snapshot listener
-    return () => unsubscribe();
-  }, []);
-
-  const { selectAll, handleSelectAll, handleSelectItem } = useTableSelection(
-    data,
-    setData
-  );
 
   const handleDelete = async (id) => {
     const item = data.find((item) => item.id === id);
@@ -103,37 +100,10 @@ const Table = ({ onEditItem }) => {
     setCurrentPage(page);
   };
 
-  const handleSort = (key) => {
-    const newSortDirection = sortDirection[key] === "asc" ? "desc" : "asc";
-    setSortDirection({
-      ...sortDirection,
-      [key]: newSortDirection,
-    });
-
-    const sortedData = [...data].sort((a, b) => {
-      const isNumericField = [
-        "cost",
-        "amountStock",
-        "remainingStock",
-        "price",
-      ].includes(key);
-      const aValue = isNumericField ? parseFloat(a[key]) : a[key];
-      const bValue = isNumericField ? parseFloat(b[key]) : b[key];
-
-      if (aValue < bValue) return newSortDirection === "asc" ? -1 : 1;
-      if (aValue > bValue) return newSortDirection === "asc" ? 1 : -1;
-      return 0;
-    });
-
-    setData(sortedData);
-  };
-
-  // Calculate the items to display for the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredData.slice(startIndex, endIndex);
 
-  // Calculate total sales
   const totalSales = data.reduce((acc, item) => {
     const soldQuantity = item.amountStock - item.remainingStock;
     const itemSales = soldQuantity * item.price;
@@ -167,30 +137,30 @@ const Table = ({ onEditItem }) => {
                     onChange={handleSelectAll}
                   />
                 </th>
-                <th onClick={() => handleSort("id")}>
+                <th onClick={() => handleSort("id", data, setData)}>
                   ID {sortDirection.id === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("category")}>
+                <th onClick={() => handleSort("category", data, setData)}>
                   Category {sortDirection.category === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("name")}>
+                <th onClick={() => handleSort("name", data, setData)}>
                   Name {sortDirection.name === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("size")}>
+                <th onClick={() => handleSort("size", data, setData)}>
                   Size {sortDirection.size === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("cost")}>
+                <th onClick={() => handleSort("cost", data, setData)}>
                   Cost {sortDirection.cost === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("amountStock")}>
+                <th onClick={() => handleSort("amountStock", data, setData)}>
                   Amount of Stock{" "}
                   {sortDirection.amountStock === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("remainingStock")}>
+                <th onClick={() => handleSort("remainingStock", data, setData)}>
                   Remaining Stock{" "}
                   {sortDirection.remainingStock === "asc" ? "▲" : "▼"}
                 </th>
-                <th onClick={() => handleSort("price")}>
+                <th onClick={() => handleSort("price", data, setData)}>
                   Price {sortDirection.price === "asc" ? "▲" : "▼"}
                 </th>
                 <th>Action</th>
@@ -224,7 +194,7 @@ const Table = ({ onEditItem }) => {
                       </button>
                       <button
                         onClick={() => {
-                          handleEdit(item.id); // Pass the item id to handleEdit
+                          handleEdit(item.id);
                         }}
                         className="action-btn edit-btn"
                       >
