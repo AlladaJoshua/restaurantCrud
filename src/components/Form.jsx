@@ -12,7 +12,7 @@ import {
 import useCustomIDGenerator from "../hooks/useCustomIDGenerator ";
 
 const Form = ({ editingItemId, setEditingItemId }) => {
-  const { register, handleSubmit, watch, setValue, reset } = useForm({});
+  const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm({});
   const [items, setItems] = useState([]);
   const generateCustomID = useCustomIDGenerator();
   const [isEditing, setIsEditing] = useState(!!editingItemId);
@@ -86,6 +86,8 @@ const Form = ({ editingItemId, setEditingItemId }) => {
   }, [editingItemId]);
 
   const category = watch("category");
+  const amountStock = watch("amountStock");
+  const remainingStock = watch("remainingStock");
 
   const sizeOptions = {
     Appetizers: ["Small Plate", "Regular Plate", "Large Plate"],
@@ -167,18 +169,24 @@ const Form = ({ editingItemId, setEditingItemId }) => {
             <label htmlFor="amountStock">Amount of Stock</label>
             <input
               type="number"
-              {...register("amountStock")}
+              {...register("amountStock", {
+                validate: value => parseInt(value) >= parseInt(remainingStock) || "Amount of stock cannot be less than remaining stock"
+              })}
               id="amountStock"
             />
+            {errors.amountStock && <p className="error">{errors.amountStock.message}</p>}
           </div>
 
           <div className="input-group-form">
             <label htmlFor="remainingStock">Remaining Stock</label>
             <input
               type="number"
-              {...register("remainingStock")}
+              {...register("remainingStock", {
+                validate: value => parseInt(value) <= parseInt(amountStock) || "Remaining stock cannot be greater than amount of stock"
+              })}
               id="remainingStock"
             />
+            {errors.remainingStock && <p className="error">{errors.remainingStock.message}</p>}
           </div>
 
           <div className="button-group">
