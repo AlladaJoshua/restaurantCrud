@@ -1,15 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, setDoc, getDocs, updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
 
-
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAkuLbGL8FoYrzhtLPg_zfTeU-bYs61gqA",
-  authDomain: "restaurant-crud-3ddf6.firebaseapp.com",
-  projectId: "restaurant-crud-3ddf6",
-  storageBucket: "restaurant-crud-3ddf6.appspot.com",
-  messagingSenderId: "256965338366",
-  appId: "1:256965338366:web:e58f7581cab4b4b12631af"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

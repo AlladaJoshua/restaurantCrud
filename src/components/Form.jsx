@@ -123,7 +123,7 @@ const Form = ({ editingItemId, setEditingItemId }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-group-form">
             <label htmlFor="category">Category</label>
-            <select {...register("category")} id="category">
+            <select {...register("category")} id="category" required>
               <option value="" disabled hidden>
                 -Select Category-
               </option>
@@ -136,13 +136,13 @@ const Form = ({ editingItemId, setEditingItemId }) => {
 
           <div className="input-group-form">
             <label htmlFor="name">Name</label>
-            <input {...register("name")} id="name" />
+            <input {...register("name")} id="name" required/>
           </div>
 
           {category && (
             <div className="input-group-form">
               <label htmlFor="size">Size</label>
-              <select {...register("size")} id="size">
+              <select {...register("size")} id="size" required>
                 <option value="" disabled hidden>
                   -Select Size-
                 </option>
@@ -157,12 +157,12 @@ const Form = ({ editingItemId, setEditingItemId }) => {
 
           <div className="input-group-form">
             <label htmlFor="price">Price</label>
-            <input type="number" step="0.01" {...register("price")} id="price" />
+            <input type="number" step="0.01" {...register("price")} id="price" required/>
           </div>
 
           <div className="input-group-form">
             <label htmlFor="cost">Cost</label>
-            <input type="number" step="0.01" {...register("cost")} id="cost" />
+            <input type="number" step="0.01" {...register("cost")} id="cost" required/>
           </div>
 
           <div className="input-group-form">
